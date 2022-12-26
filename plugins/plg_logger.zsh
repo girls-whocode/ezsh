@@ -1,7 +1,7 @@
 #!/bin/zsh
  
 # Script log
-SCRIPT_LOG_PATH="$(config_get ezsh_log_path)"
+SCRIPT_LOG_PATH="${ezsh_script_location}/$(config_get ezsh_log_path)"
 SCRIPT_LOG_FILE="$(config_get ezsh_log_file)"
 
 # Scripts log

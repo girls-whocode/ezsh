@@ -17,12 +17,13 @@ main() {
   ezsh_log_entry
   ezsh_timer start
 
+  source ${ezsh_script_location}/modules/mod_dir_jump.zsh
   sleep 0.5
 
 
   ezsh_timer stop
   ezsh_timer complete
-  
+
   if [[ ${ezsh_timer_message} == "" ]]; then
     echo "Your script completed in ${ezsh_timer_complete} seconds."
   else
@@ -30,6 +31,7 @@ main() {
     unset ezsh_timer_message
   fi
   ezsh_log_stop
+  ezsh_log_exit
 }
 
 main
