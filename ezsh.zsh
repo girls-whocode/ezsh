@@ -1,7 +1,8 @@
-#! /bin/zsh
+#!/bin/zsh
 
 # Get current working directory
 ezsh_script_location="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bold=$(tput bold)
 
 # Load configuration file
 source ${ezsh_script_location}/etc/conf/ezsh_config.zsh
@@ -17,8 +18,10 @@ main() {
   ezsh_log_entry
   ezsh_timer start
 
+  source ${ezsh_script_location}/modules/mod_spinner.zsh
   source ${ezsh_script_location}/modules/mod_dir_jump.zsh
-  sleep 0.5
+  source ${ezsh_script_location}/modules/mod_backup.zsh
+  
 
 
   ezsh_timer stop
@@ -34,4 +37,11 @@ main() {
   ezsh_log_exit
 }
 
+exit_trap() {
+  tput cnorm
+  set -m
+  echo -en "\033[2K\r"
+}
+
+trap exit_trap EXIT
 main

@@ -1,4 +1,5 @@
 #!/bin/zsh
+# https://github.com/jeliasson/zsh-logging
  
 # Script log
 SCRIPT_LOG_PATH="${ezsh_script_location}/$(config_get ezsh_log_path)"

@@ -8,8 +8,18 @@ config_get() {
   val="$(config_read_file ${ezsh_script_location}/etc/conf/ezsh.conf "${1}")"
 
   if [ "${val}" = "__UNDEFINED__" ]; then
-      val="$(config_read_file ${ezsh_script_location}/etc/conf/ezsh.conf.defaults "${1}")";
+      val="$(config_read_file ${ezsh_script_location}/etc/conf/ezsh.conf.defaults "${1}")"
   fi
 
-  printf -- "%s" "${val}";
+  printf -- "%s" "${val}"
+}
+
+color_config() {
+  colors="$(config_read_file ${ezsh_script_location}/etc/conf/colors.conf "${1}")"
+
+  if [ "${val}" = "__UNDEFINED__" ]; then
+      val="$(config_read_file ${ezsh_script_location}/etc/conf/colors.conf.defaults "${1}")"
+  fi
+
+  printf -- "%s" "${colors}"
 }

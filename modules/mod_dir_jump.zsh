@@ -95,12 +95,12 @@ ezsh_dir_jump_number_of_dir_paths() {
 ezsh_dir_jump_print_directory_history() {
   ezsh_log_entry
   local count
-	echo -e "${Aqua}Use the number to jump to that directory${txtReset}\n"
-	echo -e "${Aqua} 0 ${Yellow} ${HOME} ${txtReset}"
+  printf "\n%bUse the number to jump to that directory%b\n" "$(color_config Aqua)" "$(color_config txtReset)"
+  printf "%b 0 %b %s %b\n" "$(color_config CadetBlue)\n" "$(color_config Maroon)" "${HOME}" "$(color_config txtReset)"
 	
   while read items; do
 		((count++))
-		echo -e "${Aqua} ${count} ${Yellow} ${items} ${txtReset}"
+    printf "%b %s %b %s %b\n" "$(color_config CadetBlue)" "${count}" "$(color_config Maroon)" "${items}" "$(color_config txtReset)"
 	done < "${ezsh_directory_list}"
   
   ezsh_log_exit
