@@ -1,5 +1,6 @@
 #! /bin/zsh
-# The timer has minor error checking but is not agile enough to detect all errors.
+# The timer is a fuction that will calculate the time the script has ran. The timer
+# has minor error checking but is not fully agile to detect all possible errors.
 # It will detect if the timer stops without a start, completes without an end, and
 # end was placed before the start. This plugin uses the logging plugin to output
 # any errors or completions into the log file.

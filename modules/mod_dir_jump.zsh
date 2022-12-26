@@ -1,4 +1,11 @@
 #!/bin/zsh
+# The dir_jump function is a quick way to jump from previously visited
+# directories with a fully updated list. Dir_jump allows the user to
+# specify what command pulls up the list, which by default is `d`. The
+# user will be presented with a list of history number customizable 
+# directories they have changed into, and may be selected by pressing
+# the corrasponding number. Currently the number of history is set to
+# 15 and may be modified in the ezsh.conf file.
 
 ezsh_directory_list="${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/$(config_get ezsh_dir_list_file)"
 ezsh_last_dir_remove="${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/$(config_get ezsh_dir_last_removed)"
@@ -6,8 +13,8 @@ ezsh_dir_jump_command="$(config_get ezsh_dir_jump_command)"
 ezsh_dir_hist_size=$(config_get ezsh_dir_jump_hist_size)
 
 # Check to see if the directories and files exist, if they don't create them
-[ ! -d "$(config_get ezsh_dir_jump_folder)" ] && mkdir -p "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)"
-[ ! -f "${ezsh_directory_list}" ] && touch "${ezsh_directory_list}"
+[[ ! -d "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)" ]] && mkdir -p "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)"
+[[ ! -f "${ezsh_directory_list}" ]] && touch "${ezsh_directory_list}"
 
 alias "${ezsh_dir_jump_command}"=ezsh_dirjump
 alias "up"="ezsh_dir_jump_up"
@@ -66,15 +73,15 @@ ezsh_dir_jump_apply_max_limit_to_history() {
 	# delete all directories whose numbers exceed the specified limit
 	# Source: https://stackoverflow.com/q/45125826/9157799
 
-	head -"${ezsh_dir_hist_size}" "${ezsh_directory_list}" > "$(config_get ezsh_dir_jump_folder)"/temp;
-	mv -f "$(config_get ezsh_dir_jump_folder)"/temp "${ezsh_directory_list}"
+	head -"${ezsh_dir_hist_size}" "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp";
+	mv -f "$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
   ezsh_log_exit
 }
 
 ezsh_dir_jump_insert_dir_path_to_top() {
   ezsh_log_entry
 	# Source: https://superuser.com/a/246841/943615
-	echo "${1}" | cat - "${ezsh_directory_list}" > "$(config_get ezsh_dir_jump_folder)/temp" && mv -f "$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
+	echo "${1}" | cat - "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" && mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
   ezsh_log_exit
 }
 
@@ -87,13 +94,15 @@ ezsh_dir_jump_number_of_dir_paths() {
 
 ezsh_dir_jump_print_directory_history() {
   ezsh_log_entry
+  local count
 	echo -e "${Aqua}Use the number to jump to that directory${txtReset}\n"
 	echo -e "${Aqua} 0 ${Yellow} ${HOME} ${txtReset}"
-	while read items; do
-		local count
+	
+  while read items; do
 		((count++))
 		echo -e "${Aqua} ${count} ${Yellow} ${items} ${txtReset}"
 	done < "${ezsh_directory_list}"
+  
   ezsh_log_exit
 }
 
@@ -142,7 +151,8 @@ ezsh_dirjump() {
 ezsh_dir_jump_delete_a_dir_path() {
   ezsh_log_entry
 	# Source: https://stackoverflow.com/a/5413132/9157799
-	grep -Fxv "$1" "${ezsh_directory_list}" > "$(config_get ezsh_dir_jump_folder)"/temp; mv -f "$(config_get ezsh_dir_jump_folder)/"/temp "${ezsh_directory_list}"
+	grep -Fxv "$1" "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp"
+  mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
   ezsh_log_exit
 }
 
