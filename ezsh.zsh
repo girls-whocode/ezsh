@@ -21,7 +21,7 @@ main() {
   source ${ezsh_script_location}/modules/mod_spinner.zsh
   source ${ezsh_script_location}/modules/mod_dir_jump.zsh
   source ${ezsh_script_location}/modules/mod_backup.zsh
-  
+  source ${ezsh_script_location}/modules/mod_viewer.zsh
 
 
   ezsh_timer stop
