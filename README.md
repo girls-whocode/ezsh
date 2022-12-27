@@ -54,3 +54,19 @@ So far, I have completed:
 * log viewer - Colorize many common elements in a log file
 * empty - Zeros out a file without changing permissions or creates a new file if it doesn't exist
 * extract - Extracts several different types of archives
+
+
+## Adding to EZSH
+
+When I built this, I wanted to have the ability to have ready made functions that can be used throughout the code. Such as spinners, 256 colors by name, such as Aqua, CadetBlue, Red, Yellow, etc, timers, and an easy way to log each step of the scripts. That is what Plugins are used for. To build a new module, I want to know when the function loads, and exits, as well as how long it took to run. So 'ezsh_log_entry' at the beginning of the function and 'ezsh_log_exit' at the end. Between them I start a timer with 'ezsh_timer start' and once the function has completed, I use 'ezsh_timer end' and 'ezsh_timer complete' then it is as simple as entering the information into the log file with 'ezsh_log_info "Your script completed in ${ezsh_timer_complete} seconds."'
+
+There are many other plugins that will be added throughout the building of this system. String manipulation is my current plugin development.
+
+* ezsh_trim_string
+  * Usage: echo $(ezsh_trim_string "   example   string    ") # Output -> example string
+* ezsh_regex
+  * Usage: echo $(ezsh_regex "123-456-7890" "[0-9]{4}") # Output -> 7890
+* ezsh_lower
+  * Usage: echo $(ezsh_lower "THiS iS a POorly written striNG") # Output -> this is a poorly written string
+* ezsh_upper
+  * Usage: echo $(ezsh_lower "THiS iS a POorly written striNG") # Output -> THIS IS A POORLY WRITTEN STRING

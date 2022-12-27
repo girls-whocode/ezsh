@@ -8,6 +8,7 @@ bold=$(tput bold)
 source ${ezsh_script_location}/etc/conf/ezsh_config.zsh
 
 # Load any plugins required
+source ${ezsh_script_location}/plugins/plg_strings.zsh
 source ${ezsh_script_location}/plugins/plg_logger.zsh
 source ${ezsh_script_location}/plugins/plg_timer.zsh
 source ${ezsh_script_location}/plugins/plg_errors.zsh
