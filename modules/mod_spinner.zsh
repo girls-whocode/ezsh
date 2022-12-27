@@ -1,13 +1,4 @@
 #!/bin/zsh
-# title					:Enhanced BASH v3
-# description			:To be used within scripts to create a spinner
-# author				:Jessica Brown
-# date					:2022-11-19
-# version				:1.0.0
-# usage					:start_spinner "Message" ... stop_spinner
-# notes					:
-# bash_version	:5.1.16(1)-release
-# ==============================================================================
 
 start_spinner() {
     ezsh_log_entry
