@@ -6,6 +6,12 @@ ezsh_trim_string() {
   printf '%s\n' "$_"
 }
 
+ezsh_trim_quotes() {
+    # Usage: ezsh_trim_quotes "string"
+    : "${1//\'}"
+    printf '%s\n' "${_//\"}"
+}
+
 ezsh_regex() {
   typeset ec
   unset -v ezsh_regex
@@ -24,21 +30,23 @@ ezsh_upper() {
   printf '%s\n' "${1:u}"
 }
 
+ezsh_reverse() {
+  len=${#1}
+  for ((i=${len}-1; i >= 0; i--)); do
+    reverse="${reverse}${1:$i:1}" 
+  done
+  printf "%s\n" "${reverse}"
+}
+
 ezsh_split() {
-   # Usage: ezsh_split "string" "delimiter"
-   IFS=$'\n' read -d "" -rA arr <<< "${1//$2/$'\n'}"
-   printf '%s\n' "${arr[@]}"
+  # Usage: ezsh_split "string" "delimiter"
+  eval $3'=("${(@ps:$2:)$1}")'
+  printf "%s" "$3"
 }
 
 ezsh_reverse_case() {
     # Usage: ezsh_reverse_case "string"
     printf '%s\n' "${1~~}"
-}
-
-ezsh_trim_quotes() {
-    # Usage: ezsh_trim_quotes "string"
-    : "${1//\'}"
-    printf '%s\n' "${_//\"}"
 }
 
 ezsh_strip() {
@@ -61,22 +69,10 @@ ezsh_rstrip() {
     printf '%s\n' "${1%%$2}"
 }
 
-ezsh_urlencode() {
-    # Usage: ezsh_urlencode "string"
-    local LC_ALL=C
-    for (( i = 0; i < ${#1}; i++ )); do
-        : "${1:i:1}"
-        case "$_" in
-            [a-zA-Z0-9.~_-])
-                printf '%s' "$_"
-            ;;
-
-            *)
-                printf '%%%02X' "'$_"
-            ;;
-        esac
-    done
-    printf '\n'
+ezsh_url_encode() {
+  setopt localoptions extendedglob
+  input=( ${(s::)1} )
+  print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
 }
 
 ezsh_urldecode() {

@@ -44,21 +44,21 @@ ezsh_timer() {
       if [[ ${ezsh_timer_complete} -gt 0 ]]; then
         ezsh_timer_return=${ezsh_timer_complete}
         ezsh_log_success "Timer completed at ${ezsh_timer_return}"
-        unset ezsh_timer_start ezsh_timer_end ezsh_timer_complete
+        unset ezsh_timer_start ezsh_timer_end
       else
         ezsh_timer_message="The timer stopped before it started"
         ezsh_log_error "${ezsh_timer_message}"
-        unset ezsh_timer_start ezsh_timer_end ezsh_timer_complete
+        unset ezsh_timer_start ezsh_timer_end
       fi
     elif [[ ${ezsh_timer_start} -eq 0 ]]; then
       ezsh_timer_message="The timer was never started"
       ezsh_log_error "${ezsh_timer_message}"
-      unset ezsh_timer_start ezsh_timer_end ezsh_timer_complete
+      unset ezsh_timer_start ezsh_timer_end
 
     elif [[ ${ezsh_timer_end} -eq 0 ]]; then
       ezsh_timer_message="The timer was never stopped"
       ezsh_log_error "${ezsh_timer_message}"
-      unset ezsh_timer_start ezsh_timer_end ezsh_timer_complete
+      unset ezsh_timer_start ezsh_timer_end
     fi
 
   else
