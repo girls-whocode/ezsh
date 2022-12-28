@@ -49,12 +49,16 @@ source ezsh
 
 So far, I have completed:
 
+### Modules
+
 * backup - quickly makes a centralized backup of a file or folder with a timestamp attached
 * dir jump - quickly jump to one of the last 15 directories you've visited
 * log viewer - Colorize many common elements in a log file
 * empty - Zeros out a file without changing permissions or creates a new file if it doesn't exist
 * extract - Extracts several different types of archives
-
+* tree - display a tree of each file and folder from your current directory
+* ip - An addition to the command `ip` it will allow additional items to be shown
+* connection - Many items to view your web server connections
 
 ## Adding to EZSH
 
@@ -64,9 +68,19 @@ There are many other plugins that will be added throughout the building of this 
 
 * ezsh_trim_string
   * Usage: echo $(ezsh_trim_string "   example   string    ") # Output -> example string
+* ezsh_trim_quotes
+  * echo $(ezsh_trim_quotes 'This "string" has no quotes') # Output -> This string has no quotes
 * ezsh_regex
   * Usage: echo $(ezsh_regex "123-456-7890" "[0-9]{4}") # Output -> 7890
 * ezsh_lower
   * Usage: echo $(ezsh_lower "THiS iS a POorly written striNG") # Output -> this is a poorly written string
 * ezsh_upper
   * Usage: echo $(ezsh_lower "THiS iS a POorly written striNG") # Output -> THIS IS A POORLY WRITTEN STRING
+* ezsh_reverse
+  * Usage: echo $(ezsh_reverse "THiS iS a POorly written striNG") # Output -> GNirts nettirw ylroOP a Si SiHT
+* ezsh_url_encode
+  * Usage: echo $(ezsh_url_encode 'https://www.github.com/girls-whocode/ezsh.git') # Output -> https%3A%2F%2Fwww.github.com%2Fgirls-whocode%2Fezsh.git
+* ezsh_url_decode
+  * From: https://gist.github.com/lucasad/6474224
+  * Usage: echo $(ezsh_url_encode 'https%3A%2F%2Fwww.github.com%2Fgirls-whocode%2Fezsh.git') # Output -> https://www.github.com/girls-whocode/ezsh.git
+* 
