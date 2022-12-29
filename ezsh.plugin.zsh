@@ -13,6 +13,7 @@ source ${ezsh_script_location}/plugins/plg_strings.zsh
 source ${ezsh_script_location}/plugins/plg_logger.zsh
 source ${ezsh_script_location}/plugins/plg_timer.zsh
 source ${ezsh_script_location}/plugins/plg_errors.zsh
+source ${ezsh_script_location}/plugins/plg_aliases.zsh
 
 # Main application
 main() {
@@ -26,16 +27,11 @@ main() {
   source ${ezsh_script_location}/modules/mod_empty.zsh
   source ${ezsh_script_location}/modules/mod_tree.zsh
   source ${ezsh_script_location}/modules/mod_network.zsh
+  source ${ezsh_script_location}/modules/mod_python.zsh
 
   ezsh_timer stop
   ezsh_timer complete
 
-  if [[ ${ezsh_timer_message} == "" ]]; then
-    echo "Your script completed in ${ezsh_timer_complete} seconds."
-  else
-    echo "Timer error: ${ezsh_timer_message}"
-    unset ezsh_timer_message
-  fi
   ezsh_log_exit
 }
 

@@ -25,6 +25,8 @@ as Oh-My-ZSH, and these other programs:
 * curl
 * bc
 * git
+* python 3
+* pip 3
 
 ```sh
 # This is for RHEL 9, if you are using Debian, or any other you may need to include those optional repos
@@ -81,6 +83,14 @@ There are many other plugins that will be added throughout the building of this 
 * ezsh_url_encode
   * Usage: echo $(ezsh_url_encode 'https://www.github.com/girls-whocode/ezsh.git') # Output -> https%3A%2F%2Fwww.github.com%2Fgirls-whocode%2Fezsh.git
 * ezsh_url_decode
-  * From: https://gist.github.com/lucasad/6474224
-  * Usage: echo $(ezsh_url_encode 'https%3A%2F%2Fwww.github.com%2Fgirls-whocode%2Fezsh.git') # Output -> https://www.github.com/girls-whocode/ezsh.git
-* 
+  * From: [https://gist.github.com/lucasad/6474224]
+  * Usage: echo $(ezsh_url_encode 'https%3A%2F%2Fwww.github.com%2Fgirls-whocode%2Fezsh.git') # Output -> [https://www.github.com/girls-whocode/ezsh.git]
+* calc - A Python driven application that uses CLI for a fully functional calculator
+  * From: [https://github.com/Textualize/rich]
+  * Usage: calc
+* codebrowse - A Python driven application that uses CLI to display many types of programming code
+  * From: [https://github.com/Textualize/rich]
+  * Usage: codebrowse
+* dictionary - A python driven application that uses CLI to allow you to look up the definition of words
+  * From: [https://github.com/Textualize/rich]
+  * Usage: dictionary
