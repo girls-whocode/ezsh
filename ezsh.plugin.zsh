@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 # Get current working directory
-ezsh_script_location="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# ezsh_script_location="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ezsh_script_location=${0:h}
 bold=$(tput bold)
 
 # Load configuration file
@@ -22,11 +23,9 @@ main() {
   source ${ezsh_script_location}/modules/mod_dir_jump.zsh
   source ${ezsh_script_location}/modules/mod_backup.zsh
   source ${ezsh_script_location}/modules/mod_viewer.zsh
-  source ${ezsh_script_location}/modules/mod_extract.zsh
   source ${ezsh_script_location}/modules/mod_empty.zsh
   source ${ezsh_script_location}/modules/mod_tree.zsh
   source ${ezsh_script_location}/modules/mod_network.zsh
-
 
   ezsh_timer stop
   ezsh_timer complete
