@@ -60,7 +60,7 @@ So far, I have completed:
 * extract - Extracts several different types of archives
 * tree - display a tree of each file and folder from your current directory
 * ip - An addition to the command `ip` it will allow additional items to be shown
-* connection - Many items to view your web server connections
+* connection - Many items to view your web server connections see [connections](./etc/wiki/connections.md)
 
 ## Adding to EZSH
 

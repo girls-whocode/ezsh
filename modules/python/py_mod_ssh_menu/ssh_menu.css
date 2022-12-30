@@ -1,0 +1,23 @@
+Screen {
+    layout: grid;
+    grid-size: 1;
+}
+
+.list {
+    height: 100%;
+    width: 30fr;
+    border: solid green;
+}
+
+Screen {
+    align: center top;
+}
+
+ListView {
+    width: 25;
+    height: auto;
+}
+
+Label {
+    padding: 1 2;
+}
