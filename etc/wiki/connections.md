@@ -1,6 +1,7 @@
 # Connections
 
-The network module looks for 3 web server log files, nGinX, Apache, and the RHEL Apache (httpd). If these files do not exist, it will abort and ask you to point to the log file. If you would like to look at other log files, other then a web server, see [logview](../etc/wiki/logview.md)
+[🏠 Home](../../../../../) | [🦹] Connections
+The network module looks for 3 web server log files, nGinX, Apache, and the RHEL Apache (httpd). If these files do not exist, it will abort and ask you to point to the log file. If you would like to look at other log files, other then a web server, see [🔠 logview](../../etc/wiki/logview.md)
 
 There are 2 commands that may be used with the networking module, ``ip`` and ``connections``
 
