@@ -15,3 +15,7 @@ dictionary() {
 sshmenu() {
   ${ezsh_script_location}/modules/python/py_mod_ssh_menu/mod_ssh_menu.py
 }
+
+stopwatch() {
+  ${ezsh_script_location}/modules/python/py_mod_stopwatch/mod_stopwatch.py
+}
