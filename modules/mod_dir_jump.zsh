@@ -7,14 +7,14 @@
 # the corrasponding number. Currently the number of history is set to
 # 15 and may be modified in the ezsh.conf file.
 
-ezsh_directory_list="${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/$(config_get ezsh_dir_list_file)"
+ezsh_directory_list="$(config_get ezsh_dir_jump_folder)/$(config_get ezsh_dir_list_file)"
 ezsh_last_dir_remove="${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/$(config_get ezsh_dir_last_removed)"
 ezsh_dir_jump_command="$(config_get ezsh_dir_jump_command)"
 ezsh_dir_hist_size=$(config_get ezsh_dir_jump_hist_size)
 
 # Check to see if the directories and files exist, if they don't create them
 [[ ! -d "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)" ]] && mkdir -p "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)"
-[[ ! -f "${ezsh_directory_list}" ]] && touch "${ezsh_directory_list}"
+[[ ! -f "${ezsh_script_location}/${ezsh_directory_list}" ]] && touch "${ezsh_script_location}/${ezsh_directory_list}"
 
 alias "${ezsh_dir_jump_command}"=ezsh_dirjump
 alias "up"="ezsh_dir_jump_up"
@@ -63,7 +63,7 @@ ezsh_dir_jump_get_nth_path() {
 	if [[ "${1}" == 0 ]]; then
 		echo "${HOME}"
 	else
-		echo "$(awk -v line=${1} 'NR==line' "${ezsh_directory_list}")"
+		echo "$(awk -v line=${1} 'NR==line' "${ezsh_script_location}/${ezsh_directory_list}")"
 	fi
   ezsh_log_exit
 }
@@ -73,22 +73,22 @@ ezsh_dir_jump_apply_max_limit_to_history() {
 	# delete all directories whose numbers exceed the specified limit
 	# Source: https://stackoverflow.com/q/45125826/9157799
 
-	head -"${ezsh_dir_hist_size}" "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp";
-	mv -f "$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
+	head -"${ezsh_dir_hist_size}" "${ezsh_script_location}/${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp";
+	mv -f "$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_script_location}/${ezsh_directory_list}"
   ezsh_log_exit
 }
 
 ezsh_dir_jump_insert_dir_path_to_top() {
   ezsh_log_entry
 	# Source: https://superuser.com/a/246841/943615
-	echo "${1}" | cat - "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" && mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
+	echo "${1}" | cat - "${ezsh_script_location}/${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" && mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_script_location}/${ezsh_directory_list}"
   ezsh_log_exit
 }
 
 ezsh_dir_jump_number_of_dir_paths() {
   ezsh_log_entry
 	# Source: https://stackoverflow.com/a/12022403/9157799
-	wc -l < "${ezsh_directory_list}"
+	wc -l < "${ezsh_script_location}/${ezsh_directory_list}"
   ezsh_log_exit
 }
 
@@ -101,7 +101,7 @@ ezsh_dir_jump_print_directory_history() {
   while read items; do
 		((count++))
     printf "%b %s %b %s %b\n" "$(color_config CadetBlue)" "${count}" "$(color_config Maroon)" "${items}" "$(color_config txtReset)"
-	done < "${ezsh_directory_list}"
+	done < "${ezsh_script_location}/${ezsh_directory_list}"
   
   ezsh_log_exit
 }
@@ -111,7 +111,7 @@ ezsh_dir_jump_path_already_listed() {
 	# Check if the given path already listed
 	# Source: https://stackoverflow.com/a/4749368/9157799
 
-	if grep -Fxq "$1" "${ezsh_directory_list}"; then
+	if grep -Fxq "$1" "${ezsh_script_location}/${ezsh_directory_list}"; then
 		echo "exist"
 	else
 		echo "notexist"
@@ -133,7 +133,7 @@ ezsh_dirjump() {
 		ezsh_dir_jump_print_directory_history
 
 		if [ -f "${ezsh_last_dir_remove}" ]; then
-			last_del
+			ezsh_dir_jump_last_del
 		fi
 
 		return
@@ -151,8 +151,8 @@ ezsh_dirjump() {
 ezsh_dir_jump_delete_a_dir_path() {
   ezsh_log_entry
 	# Source: https://stackoverflow.com/a/5413132/9157799
-	grep -Fxv "$1" "${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp"
-  mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_directory_list}"
+	grep -Fxv "$1" "${ezsh_script_location}/${ezsh_directory_list}" > "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp"
+  mv -f "${ezsh_script_location}/$(config_get ezsh_dir_jump_folder)/temp" "${ezsh_script_location}/${ezsh_directory_list}"
   ezsh_log_exit
 }
 
@@ -164,9 +164,9 @@ ezsh_dir_jump_delete_paths_that_no_longer_exist() {
 			# if the dir doesn't exists, it's deleted from $ezsh_directory_list
 			
       printf '%s\n' "Deleting \"$p\" from ezsh_directory_list"
-			sed -i "\?^$p\$?d" $ezsh_directory_list
+			sed -i "\?^$p\$?d" ${ezsh_script_location}/$ezsh_directory_list
 		fi
-	done < $ezsh_directory_list
+	done < ${ezsh_script_location}/$ezsh_directory_list
 }
 
 ezsh_dir_jump_propose_dir_path() {

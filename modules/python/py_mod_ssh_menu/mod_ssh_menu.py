@@ -22,6 +22,10 @@ class SSHMenu(App):
         description="Show help screen",
         key_display="?",
     ),
+    Binding(key="del", action="delete", description="Remove a host"),
+    Binding(key="ins", action="insert", description="Add a new Host"),
+    Binding(key="e", action="edit", description="Edit the host"),
+    Binding(key="arrow_down", action="down", description="Scroll down", show=False),
   ]
 
   def on_mount(self) -> None:
@@ -29,13 +33,6 @@ class SSHMenu(App):
     self.screen.styles.border = ("heavy", "white")
 
   def compose(self) -> ComposeResult:
-
-    BINDINGS = [
-      Binding(key="del", action="delete", description="Remove a host"),
-      Binding(key="ins", action="insert", description="Add a new Host"),
-      Binding(key="e", action="edit", description="Edit the host"),
-      Binding(key="arrow_down", action="down", description="Scroll down", show=False),
-    ]
 
     user_home = os.path.expanduser('~')
     config_file = user_home+"/.ssh/config"
